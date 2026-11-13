@@ -1,0 +1,19 @@
+name: Recipe Check
+
+on: push
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Say hello
+        run: echo "Hello! The robot is working"
+
+      - name: Show the recipe
+        run: cat recipe.txt
+
+      - name: Check that the recipe has noodles
+        run: grep "noodles" recipe.txt
