@@ -17,3 +17,6 @@ jobs:
 
       - name: Check that the recipe has noodles
         run: grep "noodles" recipe.txt
+
+- name: Check that the recipe has pork
+        run: grep "pork" recipe.txt
