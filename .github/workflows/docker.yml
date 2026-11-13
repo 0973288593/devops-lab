@@ -1,0 +1,37 @@
+name: Build Noodle Shop
+
+on: push
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Build the box
+        run: docker build -t noodle-shop .
+
+      - name: Run the box
+        run: docker run -d -p 8080:80 --name shop noodle-shop
+
+      - name: Test the website
+        run: |
+          sleep 3
+          curl -f http://localhost:8080
+          curl -s http://localhost:8080 | grep "DevOps"
+
+      - name: Log in to the warehouse
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Upload the box
+        run: |
+          IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}
+          docker tag noodle-shop $IMAGE:latest
+          docker tag noodle-shop $IMAGE:${{ github.sha }}
+          docker push $IMAGE:latest
+          docker push $IMAGE:${{ github.sha }}
