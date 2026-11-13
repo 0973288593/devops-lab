@@ -1,5 +1,4 @@
 Noodle recipe
-- noodles
 - water
 - pork
 - chili
