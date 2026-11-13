@@ -3,3 +3,4 @@ Noodle recipe
 - water
 - pork
 - chili
+- bean sprouts
