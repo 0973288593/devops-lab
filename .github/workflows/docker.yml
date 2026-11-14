@@ -36,6 +36,6 @@ jobs:
           docker push $IMAGE:latest
           docker push $IMAGE:${{ github.sha }}
 
-	- name: Deploy to Render
+      - name: Deploy to Render
         if: github.ref == 'refs/heads/main'
         run: curl -f -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
